@@ -1,0 +1,14 @@
+<%- include("../partials/header", {title: "Signup"}) %>
+
+<%- include("../partials/auth-form",{
+	heading:"Signup",
+	action:"/signup",
+	buttonText:"Create Account",
+	showUsername:true,
+	color:"btn-success",
+	footerQuestion:"Already have an account? ",
+	footerText: "Login",
+	destination:"/login",
+}) %>
+
+<%- include("../partials/footer") %>

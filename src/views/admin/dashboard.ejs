@@ -1,0 +1,44 @@
+<%- include("../partials/header", {title: "Dashboard"}) %>
+
+<nav class="bg-black d-flex justify-content-between p-3 position-fixed vw-100">
+  <h1 class="text-white m-0">Admin Dashboard</h1>
+  <a class="btn btn-danger px-3 fs-5 text-decoration-none" href="/logout">Logout</a>
+</nav>
+
+<div class="container-fluid bg-dark vh-100 pt-5">
+
+<form action="/admin/search" method="GET" class="p-3 text-center mt-5">
+	<input class="w-75 px-3 py-2" type="text" name="keyword" placeholder="Search user...">
+	<button class="p-2 bg-black text-white outline-none border-0 px-3" type="submit">Search</button>
+</form>
+
+<table class="table table-dark table-hover table-bordered">
+	<tr>
+		<th class="text-anger">Name</th>
+		<th>Email</th>
+		<th>Role</th>
+		<th>Status</th>
+		<th>Action</th>
+
+	</tr>
+
+	<% users.forEach(user =>{ %>
+	<tr>
+		<td><%= user.name %></td>
+		<td><%= user.email %></td>
+		<td><%= user.role %></td>
+		<%if(user.isActive===true){ %>
+		<td><span class="badge bg-success">Active</span></td>
+		<% } else{ %>
+		<td><span class="badge bg-danger">Blocked</span></td>
+		<% } %>
+		<td>
+			<a class="btn btn-outline-warning px-3 py-1" href="/admin/edit/<%= user._id %>">Edit</a>
+			<a class="btn btn-outline-danger px-3 py-1" href="/admin/delete/<%= user._id %>">Delete</a>
+		</td>
+	</tr>
+  <% }) %>
+</table>
+</div>
+
+<%- include("../partials/footer") %>

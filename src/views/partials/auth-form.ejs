@@ -1,0 +1,20 @@
+<div class="login-page d-flex align-items-center justify-content-center">
+		<div class="container">
+			<p class="head"><%= heading %></p>
+
+		<form action="<%= action %>" method="POST">
+			<% if(showUsername){ %>
+			<label for="name">Username</label>
+			<input type="text" required name="name" id="name" placeholder="Username">
+			<% } %>
+
+			<label for="email">Email</label>
+			<input type="email" required name="email" id="email" placeholder="Email">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" placeholder="Password" required>
+			 <i class="bi bi-eye-slash" id="togglePassword"></i>
+			<input type="submit" value="<%= buttonText %>" class="btn <%= color %>">
+			<p class="text-center fs-6"><%=footerQuestion%><a href="<%= destination %>"><%=footerText%></a></p>
+		</form>
+		</div>
+	</div>
