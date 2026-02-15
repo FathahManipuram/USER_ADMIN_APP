@@ -1,13 +1,17 @@
 import userService from "../services/userService.js"
 
 class AdminController{
-	async getDashboard(req, res){
-	const users= await userService.getAllUsers()
+	async getDashboard(req, res, next){
+	try{
+		const users= await userService.getAllUsers()
 
 		res.render("admin/dashboard",{
 			admin: req.session.user,
 			users,
 		})
+	}catch(error){
+		next(error)
+	}
 	}
 
 	async searchUsers(req, res){

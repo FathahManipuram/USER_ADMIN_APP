@@ -1,15 +1,16 @@
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv/config";
 import express from "express";
-import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 import nocache from "nocache";
 
 import connectDB from "./src/config/db.js"
+import sessionConfig from "./src/config/session.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
 import adminRoutes from "./src/routes/admin.routes.js";
+import loggerMiddleware from "./src/middlewares/loggerMiddleware.js";
+import errorMiddleware from "./src/middlewares/errorMiddleware.js";
 
 
 const app= express();
@@ -26,18 +27,20 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname, "src","public")))
 app.use (nocache())
-app.use(
-	session({
-		secret:process.env.SESSION_SECRET,
-		resave: false,
-		saveUninitialized: false,
-	})
-)
+app.use(sessionConfig)
+app.use(loggerMiddleware)
+
 
 app.use("/", authRoutes)
 app.use("/user",userRoutes)
 app.use("/admin", adminRoutes)
 
+app.use((req, res)=>{
+	res.status(404).render("error",{
+		message:"Page not found",
+	})
+})
+app.use(errorMiddleware)
 
 const PORT= process.env.PORT ||3000
 app.listen(PORT,()=>{
