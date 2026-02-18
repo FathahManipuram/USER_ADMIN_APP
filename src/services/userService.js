@@ -29,25 +29,16 @@ class UserService{
 
 //Login
 	async validateUser(email, password){
-		console.log("inside validator: ",email, password)
 		const user= await User.findOne({email})
-		console.log("validate User: ",user);
 		
 		if(!user){
-			console.log("Invalid email");
-			
 			throw new Error("Invalid email or password")
 		}
 
 		const isMatch= await comparePassword(password, user.password);
-		console.log("password compared successsfully");
 		if(!isMatch){
-			console.log("Invalid password");
-			
 			throw new Error("Invalid email or password")
 		}
-
-		console.log("Validated ");
 		
 		return user;
 	}

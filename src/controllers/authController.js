@@ -13,10 +13,9 @@ class AuthController{
 	async postSignup(req, res){
 		try{
 			const {name, email, password}=req.body
-			console.log(req.body)
+	
 			await userService.createUser({name, email, password})
-			console.log("stored in db");
-			
+			req.session.success= "Successfully registered"
 			res.redirect("/login")
 		}catch(error){
 			res.render("auth/signup", {error: error.message})
@@ -27,11 +26,9 @@ class AuthController{
 	async postLogin(req, res){
 		try{
 			const {email, password}=req.body
-			console.log("login:", req.body);
-			console.log("inside postlogin");
+	
 			
 			const user= await userService.validateUser(email, password)
-			console.log("looged user", user);
 
 			req.session.user={
 				id:user._id,
@@ -43,11 +40,9 @@ class AuthController{
 				return res.redirect("/admin/dashboard")
 			}
 
+			req.session.success= "Welcome"
 			res.redirect("/user/home")
-
-			console.log("logged");
-			
-			
+	
 		}catch(error){
 			res.render("auth/login", {error:error.message})
 		}
@@ -56,6 +51,7 @@ class AuthController{
 
 logout(req, res){
 	req.session.destroy(()=>{
+		res.clearCookie("connect.sid")
 		res.redirect("/login")
 	})
 }

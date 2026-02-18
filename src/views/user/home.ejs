@@ -1,8 +1,19 @@
 <%- include("../partials/header", {title:"Home"}) %>
 
-<h1>Welcome <%= user.name %></h1>
+<div class="home container-fluid vh-100 vw-100 d-flex align-items-center justify-content-top flex-column">
+   <div class="d-flex justify-content-end vw-100 pt-4 pe-4">
+     <form action="/logout" method="POST">
+        <button type="submit" class="btn btn-dark">Logout</button>
+    </form>
+   </div>
+<p class="home-title">WELCOME</p>
+<img class="image" src="/images/img1.png" alt="img">
+</div>
+	
 
-<a href="/logout">Logout</a>
+
+
+   
 
 
 

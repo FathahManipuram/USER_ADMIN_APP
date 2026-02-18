@@ -1,15 +1,16 @@
 import {Router} from "express"
 const router = Router();
 import authController from "../controllers/authController.js"
+import guestMiddleware from "../middlewares/guestMiddleware.js";
 
 
-router.get("/login", authController.getLogin)
+router.get("/login", guestMiddleware, authController.getLogin)
 router.post("/login",authController.postLogin)
 
-router.get("/signup", authController.getSigup)
+router.get("/signup", guestMiddleware, authController.getSigup)
 router.post("/signup", authController.postSignup)
 
-router.get("/logout",authController.logout)
+router.post("/logout", authController.logout)
 
 
 export default router;

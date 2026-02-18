@@ -3,7 +3,12 @@
 <h2>Error</h2>
 <p><%= message %></p>
 
-<a href="/">Go Home</a>
+<% if(user==="user"){ %>
+<a href="/user/home">Go Home</a>
+<% }else{ %>
+<a href="/admin/dashboard">Go Home</a>
+<% } %>
+
 
 <%- include("./partials/footer") %>
 

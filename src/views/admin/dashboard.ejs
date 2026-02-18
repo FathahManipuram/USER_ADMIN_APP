@@ -2,7 +2,10 @@
 
 <nav class="bg-black d-flex justify-content-between p-3 position-fixed vw-100">
   <h1 class="text-white m-0">Admin Dashboard</h1>
-  <a class="btn btn-danger px-3 fs-5 text-decoration-none" href="/logout">Logout</a>
+  <form action="/logout" method="POST">
+	<button type="submit" class="btn btn-danger px-3 fs-5">Logout</button>
+  </form>
+  
 </nav>
 
 <div class="container-fluid bg-dark vh-100 pt-5">
