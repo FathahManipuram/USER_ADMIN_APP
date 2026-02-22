@@ -26,15 +26,18 @@ function validateForm(){
 	
 	if(userName){
 	nameVal= userName.value.trim()
-	const namePattern= /^[A-Za-z]+$/
+	const namePattern= /^[A-Za-z ]+$/
 
 			if(!namePattern.test(nameVal)){
 			errorname.textContent= "Username can contain only letters"
 			isValid= false
-			}else if(nameVal.length <4){
+			}
+			if(nameVal.length <4){
 			errorname.textContent="Username must be at least 4 characters"
 			isValid=false
 			}
+
+			
 
 	}
 

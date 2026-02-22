@@ -1,17 +1,16 @@
 <%- include("../partials/header", {title: "Dashboard"}) %>
 
-<nav class="bg-black d-flex justify-content-between p-3 position-fixed vw-100">
+	<nav class="bg-black d-flex justify-content-between p-3 position-fixed vw-100">
   <h1 class="text-white m-0">Admin Dashboard</h1>
   <form action="/logout" method="POST">
 	<button type="submit" class="btn btn-danger px-3 fs-5">Logout</button>
   </form>
-  
 </nav>
 
-<div class="container-fluid bg-dark vh-100 pt-5">
+<div class="container-fluid bg-dark vh-100 pt-5 vw-100">
 
 <form action="/admin/search" method="GET" class="p-3 text-center mt-5">
-	<input class="w-75 px-3 py-2" type="text" name="keyword" placeholder="Search user...">
+	<input class="w-75 px-3 py-2" type="text" name="keyword" placeholder="Search user..." value="<%=keyword %>">
 	<button class="p-2 bg-black text-white outline-none border-0 px-3" type="submit">Search</button>
 </form>
 
@@ -36,8 +35,8 @@
 		<td><span class="badge bg-danger">Blocked</span></td>
 		<% } %>
 		<td>
-			<a class="btn btn-outline-warning px-3 py-1" href="/admin/edit/<%= user._id %>">Edit</a>
-			<a class="btn btn-outline-danger px-3 py-1" href="/admin/delete/<%= user._id %>">Delete</a>
+			<a class="edit-btn btn btn-outline-warning px-3 py-1" href="/admin/edit/<%= user._id %>">Edit</a>
+			<a class="delete-btn btn btn-outline-danger px-3 py-1" href="/admin/delete/<%= user._id %>">Delete</a>
 		</td>
 	</tr>
   <% }) %>

@@ -23,7 +23,7 @@ label{
   font-size: 12px;
   margin-bottom: 5px;
 }
-input{
+input, select{
   padding: 15px;
   border: 0;
   background-color: #f2f2f2;

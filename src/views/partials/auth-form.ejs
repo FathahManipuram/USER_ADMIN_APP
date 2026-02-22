@@ -17,19 +17,31 @@
 		<form class="d-flex flex-column" action="<%= action %>" method="POST">
 			<% if(showUsername){ %>
 			<label for="name">Username</label>
-			<input type="text" name="name" id="name" placeholder="Username" required>
+			<input type="text" name="name" id="name" placeholder="Username" required value="<%= user ? user.name :'' %>">
 			<small class="userName text-danger"></small>
 			<% } %>
 
 			<label for="email">Email</label>
-			<input type="email" required name="email" id="email" placeholder="Email">
+			<input type="email" required name="email" id="email" placeholder="Email" value="<%= user ? user.email:'' %>">
 			<small class="Email text-danger"></small>
+			<% if(isSignup){ %>
 			<label for="password">Password</label>
 			<input type="password" name="password" id="password" placeholder="Password" required>
 			<small class="password text-danger"></small>
-			 <i class="bi bi-eye-slash" id="togglePassword"></i>
+			<% } %>
+			
+			 <% if(isAdminEdit){ %>
+			 <label for="isActive">Do you want to block user?</label>
+	 			<select name="isActive" id="isActive" class="mb-4">
+				<option value="true" selected>Active user</option>
+				<option value="false" class="">Block user</option>
+	 			</select>
+			 <% } %>
 			<input type="submit" value="<%= buttonText %>" class="btn <%= color %>">
+			<% if(isSignup){ %>
 			<p class="text-center fs-6"><%=footerQuestion%><a href="<%= destination %>"><%=footerText%></a></p>
+			<% } %>
+			
 		</form>
 		</div>
 	</div>

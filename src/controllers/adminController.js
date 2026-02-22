@@ -1,54 +1,53 @@
-import userService from "../services/userService.js"
+import userService from "../services/userService.js";
 
-class AdminController{
-	async getDashboard(req, res, next){
-	try{
-		const users= await userService.getAllUsers()
+class AdminController {
+  async getDashboard(req, res, next) {
+    try {
+      const users = await userService.getAllUsers();
 
-		res.render("admin/dashboard",{
-			admin: req.session.user,
-			users,
-		})
-	}catch(error){
-		next(error)
-	}
-	}
+      res.render("admin/dashboard", {
+        admin: req.session.user,
+        users,
+        keyword: "",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-	async searchUsers(req, res){
-		const {keyword}=req.query;
-		const users= await userService.searchUsers(keyword)
+  async searchUsers(req, res) {
+    const { keyword } = req.query;
+    const users = await userService.searchUsers(keyword);
 
-		res.render("admin/dashboard",{
-			admin:req.session.user,
-			users,
-		})
-	}
+    res.render("admin/dashboard", {
+      admin: req.session.user,
+      users,
+      keyword,
+    });
+  }
 
-	async deleteUser(req, res){
-		const { id }= req.params;
-		await userService.deleteUser(id)
+  async deleteUser(req, res) {
+    const { id } = req.params;
+    await userService.deleteUser(id);
 
-		res.redirect("/admin/dashboard")
-	}
+    res.redirect("/admin/dashboard");
+  }
 
+  async getEditUser(req, res) {
+    const { id } = req.params;
+    console.log("edit user");
+    const user = await userService.getUserById(id);
 
-	async getEditUser(req, res){
-		const { id }=req.params;
-		const user= await userService.getUserById(id)
+    res.render("admin/editUser", { user, error: null });
+  }
 
-		res.render("admin/editUser", {user})
+  async postEditUser(req, res) {
+    console.log("inside posteditUser");
+    const { id } = req.params;
 
-	}
-
-	async postEditUser(req, res){
-		const { id }=req.prarms
-
-		await userService.updateUser(id, req.body)
-		res.redirect("/admin/dashboard")
-	}
-
-
-
+    await userService.updateUser(id, req.body);
+    res.redirect("/admin/dashboard");
+  }
 }
 
-export default new AdminController()
+export default new AdminController();
